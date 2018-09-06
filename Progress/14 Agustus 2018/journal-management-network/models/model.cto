@@ -1,0 +1,40 @@
+/**
+ * Journal Management Network
+ */
+
+namespace org.example.mynetwork
+
+asset Document identified by documentId {
+    o String documentId
+    o String title
+    o String description
+    o String type
+    o String status
+    o String feedback
+    o Double reviewCounter
+    o Double download
+    o Double price
+    --> User owner
+    --> User reviewer
+}
+participant User identified by userId {
+    o String userId
+    o String firstName
+    o String lastName
+    o String field
+}
+transaction Upload {
+    --> Document document
+    --> User owner
+}
+transaction Review {
+  	--> Document document
+    --> User reviewer
+}
+transaction Feedback {
+	--> Document document
+    o String feedback
+}
+transaction Download {
+	--> Document document
+}

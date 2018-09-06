@@ -1,0 +1,70 @@
+/** Sample queries for Commodity Trading business network
+*/
+
+query selectDocuments {
+  description: "Select all documents"
+  statement:
+      SELECT org.example.mynetwork.Document
+}
+
+query selectDocumentsByPrice {
+  description: "Select all documents based on their price"
+  statement:
+      SELECT org.example.mynetwork.Document
+          WHERE (price == _$price)
+}
+
+query selectDocumentsByScore {
+  description: "Select all documents based on their score"
+  statement:
+      SELECT org.example.mynetwork.Document
+          WHERE (score == _$score)
+}
+
+query selectDocumentsByDownloaded {
+  description: "Select all documents based on their download"
+  statement:
+      SELECT org.example.mynetwork.Document
+          WHERE (downloaded == _$downloaded)
+}
+
+query selectDocumentsByCited {
+  description: "Select all documents based on their cite"
+  statement:
+      SELECT org.example.mynetwork.Document
+          WHERE (cited == _$cited)
+}
+
+query selectDocumentsByOwner {
+  description: "Select all documents based on their owner"
+  statement:
+      SELECT org.example.mynetwork.Document
+          WHERE (author == _$author)
+}
+
+query selectDocumentsByReviewer {
+  description: "Select all documents based on their reviewer"
+  statement:
+      SELECT org.example.mynetwork.Document
+          WHERE (reviewer == _$reviewer)
+}
+
+query selectUsers {
+  description: "Select all user"
+  statement:
+      SELECT org.example.mynetwork.User
+}
+
+query selectUsersByScore {
+  description: "Select all users based on their score"
+  statement:
+      SELECT org.example.mynetwork.User
+          WHERE (score == _$score)
+}
+
+query selectUsersByWallet {
+  description: "Select all users based on their wallet"
+  statement:
+      SELECT org.example.mynetwork.User
+          WHERE (wallet == _$wallet)
+}

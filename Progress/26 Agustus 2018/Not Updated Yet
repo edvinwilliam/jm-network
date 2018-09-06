@@ -1,0 +1,32 @@
+NOT UPDATED YET
+
+
+
+
+ACL
+
+- User UpdateTheirDocuments
+rule R1c_UserUpdateTheirDocuments {
+  description: "User can work with their own Documents"
+  participant(u): "org.example.mynetwork.User"
+  operation: READ
+  resource(d): "org.example.mynetwork.Document"
+  condition: ( function (){
+    var t = false;
+    for (var i = 0; i < d.author.length; i++) {
+    	if (d.author[i].getIdentifier() == u.getIdentifier()) {
+        	t = true;
+        }
+  	}
+  	return t;
+  })
+  action: ALLOW
+}
+
+
+
+
+SCRIPT
+
+- User Wallet+
+- User Point+
