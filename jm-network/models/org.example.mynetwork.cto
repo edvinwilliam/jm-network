@@ -1,0 +1,86 @@
+/**
+ * Journal Management Network
+ */
+
+namespace org.example.mynetwork
+
+enum Type {
+	o II
+	o IF
+    o EE
+    o EP
+    o EB
+    o ET
+    o MB
+    o MK
+    o DI
+    o DK
+    o KU
+    o TI
+    o MR
+}
+
+asset Document identified by title {
+    o String title
+    o String description
+    o Type type
+    o String status default = "DONE"
+    o Double price default = 0.0
+    o Double score default = 0.0
+  	--> User[] downloader optional
+    o Double downloaded default = 0.0
+  	--> Document[] citedDocument optional
+    o Double cited default = 0.0
+    --> User[] author optional
+    o Double authorCounter default = 0.0
+    --> User[] progressReviewer optional
+    --> User[] reviewer optional
+    o String[] feedback optional
+    o Double progressCounter default = 0.0
+    o Double reviewCounter default = 0.0
+}
+  
+participant User identified by email {
+    o String email
+    o String firstName
+    o String lastName
+    o Type field
+  	--> Document[] ownedDocument optional
+  	o Double owned default = 0.0
+  	--> Document[] downloadedDocument optional
+  	o Double download default = 0.0
+    o Double score default = 0.0
+    o Double wallet default = 0.0
+}
+  
+transaction Upload {
+ 	--> Document document
+    --> User author
+}
+transaction Review {
+  	--> Document document
+    --> User reviewer
+}
+transaction Feedback {
+	--> Document document
+    --> User reviewer
+    o String feedback
+}
+transaction Download {
+	--> Document document
+  	--> User downloader
+}
+transaction Cite {
+	--> Document document
+  	--> Document cite
+}
+event UserNotification {
+    --> Document document
+  	o String status
+}
+event CiteNotification {
+	--> Document document
+  	--> Document citedDocument
+  	--> User[] author
+  	o String status
+}

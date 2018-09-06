@@ -1,0 +1,341 @@
+<!--
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<div class="modal fade" id="addTransactionModal" tabindex="-1" role="dialog" aria-labelledby="addTransactionModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addTransactionModalLabel">Create Transaction</h4>
+          <p class="modal-intro">Enter the required values below.</p>
+      </div>
+      <form [formGroup]="myForm">
+        <div class="modal-body">
+
+
+          
+
+            
+              <div class="form-group text-left">
+                <label for="document">document</label>
+                
+                    <textarea formControlName="document" class="form-control" rows="3"></textarea>
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="author">author</label>
+                
+                    <textarea formControlName="author" class="form-control" rows="3"></textarea>
+                
+              </div>
+            
+          
+
+            
+              <!-- <div class="form-group text-left">
+                <label for="transactionId">transactionId</label>
+                
+                  <input formControlName="transactionId" type="text" class="form-control">
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="timestamp">timestamp</label>
+                
+                  <input formControlName="timestamp" type="text" class="form-control">
+                
+              </div> -->
+            
+          
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button (click)="addTransaction(myForm);" type="submit" class="btn btn-success" data-dismiss="modal">Confirm</button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="updateTransactionModal" tabindex="-1" role="dialog" aria-labelledby="updateTransactionModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="updateTransactionModalLabel">Update Transaction</h4>
+      </div>
+      <form [formGroup]="myForm">
+        <div class="modal-body">
+
+
+          
+            <div class="form-group text-left">
+              <label for="document">document</label>
+
+              
+                
+                  <textarea [ngModel]="document" formControlName="document" class="form-control" rows="3"></textarea>
+                
+              
+
+            </div>
+          
+            <div class="form-group text-left">
+              <label for="author">author</label>
+
+              
+                
+                  <textarea [ngModel]="author" formControlName="author" class="form-control" rows="3"></textarea>
+                
+              
+
+            </div>
+          
+            <div class="form-group text-left">
+              <label for="transactionId">transactionId</label>
+
+              
+                <input [ngModel]="transactionId"formControlName="transactionId" type="text" class="form-control">
+              
+
+            </div>
+          
+            <div class="form-group text-left">
+              <label for="timestamp">timestamp</label>
+
+              
+                <input [ngModel]="timestamp"formControlName="timestamp" type="text" class="form-control">
+              
+
+            </div>
+          
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button (click)="updateTransaction(myForm)" type="submit" class="btn btn-success" data-dismiss="modal">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="deleteTransactionModal" tabindex="-1" role="dialog" aria-labelledby="deleteTransactionModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="deleteTransactionModalLabel">Delete Transaction</h4>
+      </div>
+      <form [formGroup]="myForm" (ngSubmit)="deleteTransaction()">
+        <div class="modal-body">
+          Are you sure you want to delete this Transaction?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+          <button (click)="deleteTransaction()" type="submit" class="btn btn-danger" data-dismiss="modal">Yes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          <strong>Error:</strong> {{errorMessage}}
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            This transaction will record document which is uploaded. It will 
+            record document and its authors.
+            <br> 
+            When invoked, this transaction will have the following attributes:
+            <br>
+            <ul>
+              
+  
+                
+                  <li><span class="attribute"><b>document</b></span></li>
+                
+              
+  
+                
+                  <li><span class="attribute"><b>author</b></span></li>
+                
+              
+  
+                
+                  <!-- <li><span class="attribute"><b>transactionId</b></span></li>
+                
+              
+  
+                
+                  <li><span class="attribute"><b>timestamp</b></span></li> -->
+                
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <br>
+  
+  <div class="container">
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          <strong>Error:</strong> {{errorMessage}}
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <h1 class="transaction-title" id='transactionName'><b>TELKOMNIKA</b></h1>
+          <p class="invoke_cancel" id='invoke_cancel'>Invoke</p>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            TTELKOMNIKA (Telecommunication, Computing, Electronics and Control) ISSN: 1693-6930, e-ISSN: 2302-9293 is a peer-reviewed,
+            scientific journal published by - in collaboration with Institute of Advanced Engineering and Science (IAES).
+            The aim of this journal is to publish high-quality articles dedicated to all aspects of the latest outstanding developments in the field of
+            electrical engineering. Its scope encompasses the applications of Telecommunication and Information Technology, Applied Computing and Computer,
+            Instrumentation and Control, Electrical (Power), and Electronics Engineering. It was first published in 2003. Beginning with issue 1 of volume 16 (2018),
+            TELKOMNIKA will be published as a bimonthly journal (6 issues/year). The journal registered in the CrossRef system with Digital Object Identifier (DOI)
+            prefix 10.12928. The Journal has been indexed by SCOPUS, Google Scholar, Scholar Metrics etc; accredited 'A' Grade by DGHE (Ministry of Research,
+            Technology and Higher Education, Republic of Indonesia); registered Directory of Open Access Journals (DOAJ), BASE - Bielefeld Academic Search Engine
+            and CORE KMi, etc. The Journal also have a license agreement with  ProQuest LLC and EBSCO Publishing.
+            <br> 
+          </div>
+        </div>
+        <button (click)="resetForm();" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTransactionModal">Upload</button>
+      </div>
+    </div>
+  </div>
+  
+  <br>
+  
+  <div class="container">
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          <strong>Error:</strong> {{errorMessage}}
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <h1 class="transaction-title" id='transactionName'><b>JSTIF</b></h1>
+          <p class="invoke_cancel" id='invoke_cancel'>Invoke</p>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            JSTIF (Jurnal Sarjana Teknik Informatika) (E-Journal) adalah jurnal online ditujukan sebagai sarana publikasi dari makalah yang disarikan
+            dari hasil penelitian mahasiswa Teknik Informatika.
+            <br> 
+          </div>
+        </div>
+        <button (click)="resetForm();" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTransactionModal">Upload</button>
+      </div>
+    </div>
+  </div>
+  
+  <br>
+  
+  <div class="container">
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          <strong>Error:</strong> {{errorMessage}}
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <h1 class="transaction-title" id='transactionName'><b>JITEKI</b></h1>
+          <p class="invoke_cancel" id='invoke_cancel'>Invoke</p>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            JITEKI (Jurnal Ilmiah Teknik Elektro Komputer dan Informatika) is a peer-reviewed, scientific journal published by -
+            in collaboration with Institute of Advanced Engineering and Science (IAES). The aim of this journal scope is 1) Control and Automation,
+            2) Electrical (power), 3) Signal Processing, 4) Computing and Informatics, generally or on specific issues, etc.  Submitted papers must be
+            written in Indonesia and English for initial review stage by editors and further review process by minimum two reviewers
+            <br> 
+          </div>
+        </div>
+        <button (click)="resetForm();" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTransactionModal">Upload</button>
+      </div>
+    </div>
+  </div>
+  
+  <br>
+  
+  <div class="container">
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          <strong>Error:</strong> {{errorMessage}}
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <h1 class="transaction-title" id='transactionName'><b>JUSI</b></h1>
+          <p class="invoke_cancel" id='invoke_cancel'>Invoke</p>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            Jurnal Sistem Informasi Indonesia (JUSI) adalah jurnal yang mempublikasikan karya penelitian inovatif dalam bidang sistem
+            dan teknologi informasi, rekayasa perangkat lunak, dan bidang lain yang relevan. Jurnal ini merupakan jurnal peer-review yang bersifat terbuka,
+            dapat diakses secara online, terbit setiap semester. Keterbukaan akses jurnal ini diharapkan dapat menarik lebih banyak pembaca dan kutipan
+            naskah yang diterbitkan. JUSI menerima kiriman naskah asli dan inovatif dalam bahasa Indonesia atau Inggris yang belum pernah dipublikasikan dan
+            tidak sedang dipertimbangkan untuk dipublikasikan di tempat lain.
+            <br> 
+          </div>
+        </div>
+        <button (click)="resetForm();" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTransactionModal">Upload</button>
+      </div>
+    </div>
+  </div>
+  
+  <br>  

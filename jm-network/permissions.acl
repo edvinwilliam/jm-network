@@ -1,0 +1,121 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+rule R1a_UserSeeUpdateThemselvesOnly {
+  description: "User can see and update their own record only"
+  participant(u): "org.example.mynetwork.User"
+  operation: READ, UPDATE
+  resource(v): "org.example.mynetwork.User"
+  condition: (v.getIdentifier() == u.getIdentifier())
+  action: ALLOW
+}
+
+rule R1b_UserSeeCreateDocuments {
+  description: "User can see and create Documents"
+  participant: "org.example.mynetwork.User"
+  operation: ALL
+  resource: "org.example.mynetwork.Document"
+  action: ALLOW
+}
+
+rule R1c_UserUpdateTheirDocuments {
+  description: "User can work with their own Documents"
+  participant(u): "org.example.mynetwork.User"
+  operation: READ
+  resource(d): "org.example.mynetwork.Document"
+  condition: ( function (){
+    var t = false;
+    for (var i = 0; i < d.author.length; i++) {
+    	if (d.author[i].getIdentifier() == u.getIdentifier()) {
+        	t = true;
+        }
+  	}
+  	return t;
+  })
+  action: ALLOW
+}
+
+
+rule R2a_EnableUploadTxn {
+    description: "Enable User to submit transactions"
+    participant: "org.example.mynetwork.User"
+    operation: ALL
+    resource: "org.example.mynetwork.Upload"
+    action: ALLOW
+}
+
+rule R2b_EnableReviewTxn {
+    description: "Enable User to submit transactions"
+    participant: "org.example.mynetwork.User"
+    operation: ALL
+    resource: "org.example.mynetwork.Review"
+    action: ALLOW
+}
+
+rule R2c_EnableFeedbackTxn {
+    description: "Enable User to submit transactions"
+    participant: "org.example.mynetwork.User"
+    operation: ALL
+    resource: "org.example.mynetwork.Feedback"
+    action: ALLOW
+}
+
+rule R2d_EnableDownloadTxn {
+    description: "Enable User to submit transactions"
+    participant: "org.example.mynetwork.User"
+    operation: ALL
+    resource: "org.example.mynetwork.Download"
+    action: ALLOW
+}
+
+rule R2e_EnableCiteTxn {
+    description: "Enable User to submit transactions"
+    participant: "org.example.mynetwork.User"
+    operation: ALL
+    resource: "org.example.mynetwork.Cite"
+    action: ALLOW
+}
+
+rule R3_UserSeeOwnHistoryOnly {
+  description: "Users should be able to see the history of their own transactions only"
+  participant(u): "org.example.mynetwork.User"
+  operation: READ
+  resource(v): "org.hyperledger.composer.system.HistorianRecord"
+  condition: (v.participantInvoking.getIdentifier() != u.getIdentifier())
+  action: DENY
+}
+
+rule SystemACL {
+    description:  "System ACL to permit all access"
+    participant: "org.hyperledger.composer.system.Participant"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}

@@ -1,0 +1,77 @@
+<!--
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <!-- <p class="network-name">jm-network@0.0.2-deploy.27.bna</p> -->
+        <h2 class="navbar-brand" style="color: #9900E5; font-family: 'Source Sans Pro Bold', sans-serif;"><b>JOURNAL MANAGEMENT APPLICATION</b></h2>
+      </div>
+
+      <ul class="nav navbar-nav">
+        
+          <li class="dropdown active">
+            <a class="dropdown-toggle" data-toggle="dropdown">INFORMATION</a>
+            <ul class="dropdown-menu scrollable-menu">
+                  <li><a [routerLink]="['/About']">About</a></li>
+                  <li><a [routerLink]="['/AllTransactions']">Blockchain</a></li>              
+            </ul>
+          </li>
+  
+          <li class="dropdown active">
+            <a class="dropdown-toggle" data-toggle="dropdown" [routerLink]="['/Upload']">UPLOAD</a>
+          </li>
+  
+          <li class="dropdown active">
+              <a class="dropdown-toggle" data-toggle="dropdown">JOURNAL</a>
+              <ul class="dropdown-menu scrollable-menu">
+                
+                <li><a [routerLink]="['/Document']">TELKOMNIKA (Telecommunication Computing Electronics and Control)</a></li>
+                <li><a>JSTIF (Jurnal Sarjana Teknik Informatika)</a></li>
+                <li><a>JITEKI (Jurnal Ilmiah Teknik Elektro Komputer dan Informatika)</a></li>
+                <li><a>JUSI (Jurnal Sistem Informasi Indonesia)</a></li>
+                
+              </ul>
+          </li>
+          
+          <li class="dropdown active">
+            <a class="dropdown-toggle" data-toggle="dropdown" [routerLink]="['/User']">USER</a>
+            <!-- <ul class="dropdown-menu scrollable-menu">
+              
+              <li><a [routerLink]="['/User']">User</a></li>
+              
+            </ul> -->
+          </li>
+  
+          <li class="dropdown active">
+            <a class="dropdown-toggle" data-toggle="dropdown">TRANSACTION</a>
+            <ul class="dropdown-menu scrollable-menu">
+              
+              <!-- <li><a [routerLink]="['/Upload']">Upload</a></li> -->
+              
+              <li><a [routerLink]="['/Review']">Review</a></li>
+              
+              <li><a [routerLink]="['/Feedback']">Feedback</a></li>
+              
+              <li><a [routerLink]="['/Download']">Download</a></li>
+              
+              <li><a [routerLink]="['/Cite']">Cite</a></li>
+              
+            </ul>
+          </li>
+  
+      </ul>
+    </div>
+  </nav>
+    
+  <router-outlet></router-outlet>
